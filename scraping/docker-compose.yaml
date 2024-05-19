@@ -1,0 +1,9 @@
+version: '3'
+services:
+  my_python_script:
+    build: .
+    image: scraping_script
+    container_name: scraping_container
+    volumes:
+      - .:/app
+    command: python ./bq_scraping.py
