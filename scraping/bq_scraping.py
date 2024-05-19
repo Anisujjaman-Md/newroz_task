@@ -14,6 +14,7 @@ user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 OPR/77.0.4054.254'
 ]
 
+
 # Randomly select a User-Agent string
 random_user_agent = random.choice(user_agents)
 
@@ -21,6 +22,7 @@ random_user_agent = random.choice(user_agents)
 headers = {
     'User-Agent': random_user_agent
 }
+
 
 
 def scrape_quotes():
