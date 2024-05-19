@@ -2,7 +2,6 @@ import random
 from rest_framework import viewsets, pagination
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from .models import Quote
 from .serializers import QuoteSerializer
 from googletrans import Translator
@@ -23,16 +22,17 @@ class QuoteViewSet(viewsets.ModelViewSet):
         try:
             quote = Quote.objects.get(pk=pk)
         except Quote.DoesNotExist:
-            raise Http404("Quote does not exist")
+            return Response({"success": False, "message": "Quote does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
         
         serializer = QuoteSerializer(quote)
-        return Response(serializer.data)
+        return Response(serializer.data, )
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if not queryset.exists():  
-            return Response({"detail": "No quotes available."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"success": False, "message": "No quotes available."}, status=status.HTTP_404_NOT_FOUND)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
@@ -46,10 +46,14 @@ class QuoteViewSet(viewsets.ModelViewSet):
             random_index = random.randint(0, count - 1)
             random_quote = Quote.objects.all()[random_index]
         except IndexError:
-            raise Http404("No quotes available.")
+            return Response({"success": False, "message": "No quotes available."}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = QuoteSerializer(random_quote)
-        return Response(serializer.data)
+        return Response({
+            "success": True,
+            "message": "Random Quote",
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
 
 
 class BanglaQuoteViewSet(viewsets.ModelViewSet):
@@ -59,7 +63,7 @@ class BanglaQuoteViewSet(viewsets.ModelViewSet):
         try:
             quote = Quote.objects.get(pk=pk)
         except Quote.DoesNotExist:
-            return Response({"success": False, "message": "Quotes Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"success": False, "message": "No quotes available."}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = QuoteSerializer(quote)
 
@@ -71,9 +75,11 @@ class BanglaQuoteViewSet(viewsets.ModelViewSet):
             return Response({"success": False, "message": "Error translating quote."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         response_data = {
-            "success": False,
+            "success": True,
             "message": "Translated Quote Details",
-            'quote': translated_quote,
-            'author': translated_author,
+            "data":{
+                'quote': translated_quote,
+                'author': translated_author,
+                }
         }
         return Response(response_data, status=status.HTTP_200_OK)
