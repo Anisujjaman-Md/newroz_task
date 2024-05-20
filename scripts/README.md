@@ -58,4 +58,4 @@ inspirational_quotes.csv: The output CSV file where the scraped quotes are store
 
 - If the CSV file inspirational_quotes.csv already exists in the project directory, the script will skip the scraping process to prevent duplicate data.
 
-- If the script encounters a HTTP 403 error, it will automatically retry the scraping process. If the error persists, check your internet connection and try running the script again.
+- If the script encounters a HTTP 403 error, try running the script again.
