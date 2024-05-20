@@ -5,9 +5,8 @@ This Django project provides an API for managing and retrieving quotes. It inclu
 ## Requirements
 
 - Python 3.8+
-- Django
 - Docker
-- Srapping script run before this
+- Run Srapping script Before
 
 ## Installation
 
@@ -25,47 +24,56 @@ This Django project provides an API for managing and retrieving quotes. It inclu
 
    ```
 
-3. Create a virtual environment and activate it:
+#### Docker
 
-   ```shell
-   python3 -m venv venv
-   source venv/bin/activate  # for Linux/Mac
-   venv\Scripts\activate  # for Windows
+- Build and run the Docker containers:
 
-   ```
+  The API will be accessible at http://localhost:8000
 
-4. Install the dependencies:
+  ```shell
+   docker-compose up
+  ```
 
-   ```shell
-   pip install -r requirements.txt
+#### Local
 
-   ```
+- Create a virtual environment and activate it:
 
-5. Apply migrations:
+  ```shell
+  python3 -m venv venv
+  source venv/bin/activate  # for Linux/Mac
+  venv\Scripts\activate  # for Windows
 
-   ```shell
-   python manage.py migrate
+  ```
 
-   ```
+- Install the dependencies:
 
-6. Start the development server:
+  ```shell
+  pip install -r requirements.txt
 
-   The API will be accessible at http://localhost:8000
+  ```
 
-   ```shell
-    python manage.py runserver
+- Apply migrations:
 
-   ```
+  ```shell
+  python manage.py migrate
 
-## Run in Docker
+  ```
 
-1. Build and run the Docker containers:
+- Import Scrap Data from Csv file:
 
-   The API will be accessible at http://localhost:8000
+  ```shell
+  python manage.py import_csv inspirational_quotes.csv
 
-   ```shell
-    docker-compose up
-   ```
+  ```
+
+- Start the development server:
+
+  The API will be accessible at http://localhost:8000
+
+  ```shell
+   python manage.py runserver
+
+  ```
 
 ## Usage
 

@@ -17,16 +17,14 @@ class Command(BaseCommand):
                 # Skip header if needed
                 next(csv_reader)
                 for row_number, row in enumerate(csv_reader, start=2):  # Start counting from row 2
-                    try:
-                        # Ensure the row has at least two elements (quote and author)
-                        if len(row) >= 2:
-                            quote_text = row[0].strip()  
-                            author_name = row[1].strip() 
-                            Quote.objects.create(quote=quote_text, author=author_name)
-                        else:
-                            self.stderr.write(self.style.ERROR(f"Skipped row {row_number}: Insufficient data"))
-                    except Exception as e:
-                        self.stderr.write(self.style.ERROR(f"Error processing row {row_number}: {e}"))
+
+                    if len(row) >= 2:
+                        quote_text = row[0].strip()  
+                        author_name = row[1].strip() 
+                        Quote.objects.create(quote=quote_text, author=author_name)
+                    else:
+                        self.stderr.write(self.style.ERROR(f"Skipped row {row_number}: Insufficient data"))
+
         except FileNotFoundError:
             self.stderr.write(self.style.ERROR(f"File not found: {csv_file_path}"))
         except Exception as e:
