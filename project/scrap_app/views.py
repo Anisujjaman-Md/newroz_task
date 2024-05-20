@@ -58,7 +58,7 @@ class QuoteViewSet(viewsets.ModelViewSet):
 
 class BanglaQuoteViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
-    queryset = Quote.objects.all()  # Define your queryset here
+    queryset = Quote.objects.all()
 
     def retrieve(self, request, pk=None):
         try:
@@ -70,8 +70,10 @@ class BanglaQuoteViewSet(viewsets.ModelViewSet):
 
         translator = Translator()
         try:
+            
             translated_quote = translator.translate(serializer.data['quote'], src='en', dest='bn').text
             translated_author = translator.translate(serializer.data['author'], src='en', dest='bn').text
+            
         except Exception as e:
             return Response({"success": False, "message": "Error translating quote."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
