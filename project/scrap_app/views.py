@@ -58,6 +58,7 @@ class QuoteViewSet(viewsets.ModelViewSet):
 
 class BanglaQuoteViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
+    queryset = Quote.objects.all()  # Define your queryset here
 
     def retrieve(self, request, pk=None):
         try:

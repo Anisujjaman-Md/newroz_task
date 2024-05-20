@@ -42,8 +42,13 @@ INSTALLED_APPS = [
     'scrap_app',
     
     #library
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg',
 ]
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_INFO': 'config.urls.swagger_info',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
