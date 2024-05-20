@@ -7,6 +7,7 @@ This Django project provides an API for managing and retrieving quotes. It inclu
 - Python 3.8+
 - Django
 - Docker
+- Srapping script run before this
 
 ## Installation
 
