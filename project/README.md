@@ -97,7 +97,7 @@ curl http://localhost:8000/api/v1/random/quotes/
 
 # Retrieve a specific quote translated to Bengali
 
-curl http://localhost:8000/api/v1/quotes-bangla-translate/1/
+curl http://localhost:8000/api/v1/qoutes-bangla-translate/1/
 
 # Swagger Api Documentation
 
